@@ -12,8 +12,8 @@ public class TransferThread extends Thread
 	
 	public TransferThread(SiteItf d,Message m)
 	{
+		msg         = m;
 		destination = d;
-		msg = m;
 	}
 	
 	public void run()

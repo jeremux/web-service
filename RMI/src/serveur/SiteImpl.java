@@ -18,9 +18,9 @@ import interf.SiteItf;
 public class SiteImpl extends UnicastRemoteObject implements SiteItf
 {
 
-	private String nom;
-	private int flag;
-	private SiteItf parent;
+	private String             nom;
+	private int                flag;
+	private SiteItf            parent;
 	private ArrayList<SiteItf> enfants;
 
 
@@ -33,19 +33,19 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	protected SiteImpl() throws RemoteException
 	{
 		super();
-		this.nom = "sans nom";
-		this.flag = -1;
-		this.setParent(null);
+		this.nom     = "sans nom";
+		this.flag    = -1;
 		this.enfants = new ArrayList<SiteItf>();
+		this.setParent(null);
 
 	}
 
 	protected SiteImpl(String nom) throws RemoteException
 	{
 		super();
-		this.nom = nom;
-		this.flag = -1;
 		this.setParent(null);
+		this.nom     = nom;
+		this.flag    = -1;
 		this.enfants = new ArrayList<SiteItf>();
 
 	}
@@ -86,7 +86,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	@Override
 	public int genereFlag() throws RemoteException
 	{
-		int res = this.flag;
+		int    res  = this.flag;
 		Random rand = new Random();
 
 		while (res == this.flag)

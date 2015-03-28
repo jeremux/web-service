@@ -4,17 +4,17 @@ import interf.SiteItf;
 
 public class Message
 {
-	private Object contenu;
-	private int flag;
-	private SiteItf origine;
-	
+	private Object	contenu;
+	private int		flag;
+	private SiteItf	origine;
+
 	public Message(Object o, int flag)
 	{
 		this.setContenu(o);
 		this.setFlag(flag);
 		this.setOrigine(null);
 	}
-	
+
 	public Message(Object o, int flag, SiteItf src)
 	{
 		this.setContenu(o);
@@ -31,7 +31,8 @@ public class Message
 	}
 
 	/**
-	 * @param contenu the contenu to set
+	 * @param contenu
+	 *            the contenu to set
 	 */
 	public void setContenu(Object contenu)
 	{
@@ -47,7 +48,8 @@ public class Message
 	}
 
 	/**
-	 * @param flag the flag to set
+	 * @param flag
+	 *            the flag to set
 	 */
 	public void setFlag(int flag)
 	{
@@ -63,12 +65,12 @@ public class Message
 	}
 
 	/**
-	 * @param origine the origine to set
+	 * @param origine
+	 *            the origine to set
 	 */
 	public void setOrigine(SiteItf origine)
 	{
 		this.origine = origine;
 	}
-	
-	
+
 }
