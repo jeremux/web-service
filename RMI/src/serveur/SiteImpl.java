@@ -124,8 +124,33 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	@Override
 	public void transfert(Message message) throws RemoteException
 	{
-		// TODO Auto-generated method stub
+		this.flag = message.getFlag();
 
+		if (message.getOrigine() != null) 
+		{
+			System.out.println("Recu: \""+message.getContenu().toString()+"\" [de "+message.getOrigine().affiche()+"]");
+		} 
+		else 
+		{
+			System.out.println("Recu : \""+message.getContenu().toString()+"\" [de client]");
+		}
+
+		message.setOrigine(this);
+		
+		//Si parent non null et si pas recu on envoie au parent
+		if (this.parent != null && !this.parent.aRecu(message.getFlag())) 
+		{
+			//Transfert
+		}
+		
+		
+		//Envoie aux fils
+		for(int i=0; i<enfants.size() ; i++)
+		{
+			if(!enfants.get(i).aRecu(message.getFlag()));
+				//envoie aux fils i
+		}
+	
 	}
 
 }
