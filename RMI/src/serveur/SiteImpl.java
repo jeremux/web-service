@@ -139,17 +139,13 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 		
 		//Si parent non null et si pas recu on envoie au parent
 		if (this.parent != null && !this.parent.aRecu(message.getFlag())) 
-		{
-			//Transfert
-		}
+			(new TransferThread(this.parent, message)).start();
 		
 		
 		//Envoie aux fils
 		for(int i=0; i<enfants.size() ; i++)
-		{
-			if(!enfants.get(i).aRecu(message.getFlag()));
-				//envoie aux fils i
-		}
+			if(!enfants.get(i).aRecu(message.getFlag()))
+				(new TransferThread(enfants.get(i), message)).run();
 	
 	}
 
