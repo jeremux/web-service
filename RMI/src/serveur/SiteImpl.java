@@ -8,6 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Random;
 
+import message.Message;
 import interf.SiteItf;
 
 /**
@@ -16,19 +17,19 @@ import interf.SiteItf;
  */
 public class SiteImpl extends UnicastRemoteObject implements SiteItf
 {
-	
+
 	private String nom;
 	private int flag;
 	private SiteItf parent;
 	private ArrayList<SiteItf> enfants;
-	
+
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6058676928968366096L;
-	
-	
+
+
 	protected SiteImpl() throws RemoteException
 	{
 		super();
@@ -36,9 +37,9 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 		this.flag = -1;
 		this.setParent(null);
 		this.enfants = new ArrayList<SiteItf>();
-		
+
 	}
-	
+
 	protected SiteImpl(String nom) throws RemoteException
 	{
 		super();
@@ -46,9 +47,9 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 		this.flag = -1;
 		this.setParent(null);
 		this.enfants = new ArrayList<SiteItf>();
-		
+
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see interf.SiteItf#affiche()
 	 */
@@ -77,7 +78,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 		noeud.fixeParent(this);
 
 	}
-	
+
 
 	/* (non-Javadoc)
 	 * @see interf.SiteItf#genereFlag()
@@ -87,12 +88,12 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	{
 		int res = this.flag;
 		Random rand = new Random();
-		
+
 		while (res == this.flag)
 		{
 			res = rand.nextInt();
 		}
-		
+
 		return res;
 	}
 
@@ -101,7 +102,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	{
 		this.setParent(parent);
 		System.out.println(parent.affiche()+" a pour fils "+this.affiche());
-		
+
 	}
 
 	/**
@@ -118,6 +119,13 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	public void setParent(SiteItf parent)
 	{
 		this.parent = parent;
+	}
+
+	@Override
+	public void transfert(Message message) throws RemoteException
+	{
+		// TODO Auto-generated method stub
+
 	}
 
 }
