@@ -1,0 +1,123 @@
+/**
+ * 
+ */
+package serveur;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.Random;
+
+import interf.SiteItf;
+
+/**
+ * @author jeremux
+ *
+ */
+public class SiteImpl extends UnicastRemoteObject implements SiteItf
+{
+	
+	private String nom;
+	private int flag;
+	private SiteItf parent;
+	private ArrayList<SiteItf> enfants;
+	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6058676928968366096L;
+	
+	
+	protected SiteImpl() throws RemoteException
+	{
+		super();
+		this.nom = "sans nom";
+		this.flag = -1;
+		this.setParent(null);
+		this.enfants = new ArrayList<SiteItf>();
+		
+	}
+	
+	protected SiteImpl(String nom) throws RemoteException
+	{
+		super();
+		this.nom = nom;
+		this.flag = -1;
+		this.setParent(null);
+		this.enfants = new ArrayList<SiteItf>();
+		
+	}
+	
+	/* (non-Javadoc)
+	 * @see interf.SiteItf#affiche()
+	 */
+	@Override
+	public String affiche() throws RemoteException
+	{
+		return this.nom;
+	}
+
+	/* (non-Javadoc)
+	 * @see interf.SiteItf#aRecu(int)
+	 */
+	@Override
+	public boolean aRecu(int flagATester) throws RemoteException
+	{
+		return this.flag == flagATester;
+	}
+
+	/* (non-Javadoc)
+	 * @see interf.SiteItf#ajouteFils()
+	 */
+	@Override
+	public void ajouteFils(SiteItf noeud) throws RemoteException
+	{
+		this.enfants.add(noeud);
+		noeud.fixeParent(this);
+
+	}
+	
+
+	/* (non-Javadoc)
+	 * @see interf.SiteItf#genereFlag()
+	 */
+	@Override
+	public int genereFlag() throws RemoteException
+	{
+		int res = this.flag;
+		Random rand = new Random();
+		
+		while (res == this.flag)
+		{
+			res = rand.nextInt();
+		}
+		
+		return res;
+	}
+
+	@Override
+	public void fixeParent(SiteImpl parent) throws RemoteException
+	{
+		this.setParent(parent);
+		System.out.println(parent.affiche()+" a pour fils "+this.affiche());
+		
+	}
+
+	/**
+	 * @return the parent
+	 */
+	public SiteItf getParent()
+	{
+		return parent;
+	}
+
+	/**
+	 * @param parent the parent to set
+	 */
+	public void setParent(SiteItf parent)
+	{
+		this.parent = parent;
+	}
+
+}
