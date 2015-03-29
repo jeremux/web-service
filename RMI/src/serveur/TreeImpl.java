@@ -63,7 +63,7 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 		this.flag    = -1;
 		this.enfants = new ArrayList<TreeItf>();
 		System.out.println("=============");
-		System.out.println("|Noeud "+nom+"|");
+		System.out.println("Noeud "+nom);
 		System.out.println("=============");
 	}
 
