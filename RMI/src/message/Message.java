@@ -1,12 +1,18 @@
 package message;
 
+import java.io.Serializable;
+
 import interf.SiteItf;
 
-public class Message
+public class Message implements Serializable
 {
-	private Object	contenu;
-	private int		flag;
-	private SiteItf	origine;
+	/**
+	 * 
+	 */
+	private static  final    long serialVersionUID = 7731616112031726802L;
+	private Object  contenu;
+	private int     flag;
+	private SiteItf origine;
 
 	public Message(Object o, int flag)
 	{

@@ -74,9 +74,12 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	@Override
 	public void ajouteFils(SiteItf noeud) throws RemoteException
 	{
+		System.out.println("==========");
+		System.out.println("Je vais ajouter le fils "+noeud.affiche()+" a "+this.affiche());
 		this.enfants.add(noeud);
 		noeud.fixeParent(this);
-
+		System.out.println("Done...");
+		System.out.println("==========");
 	}
 
 
@@ -98,7 +101,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	}
 
 	@Override
-	public void fixeParent(SiteImpl parent) throws RemoteException
+	public void fixeParent(SiteItf parent) throws RemoteException
 	{
 		this.setParent(parent);
 		System.out.println(parent.affiche()+" a pour fils "+this.affiche());
@@ -144,9 +147,10 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 		
 		//Envoie aux fils
 		for(int i=0; i<enfants.size() ; i++)
+		{	
 			if(!enfants.get(i).aRecu(message.getFlag()))
 				(new TransferThread(enfants.get(i), message)).run();
-	
+		}
 	}
 
 }

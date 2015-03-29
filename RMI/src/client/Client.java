@@ -24,8 +24,8 @@ public  class   Client
 		SiteItf  site = (SiteItf) reg.lookup("RMI");
 		int      flag = site.genereFlag();
 	
-		Message  msg  = new Message(message, flag);
-		
+		Message  msg  = new Message(message, flag,site);
+	
 		site.transfert(msg);
 	}
 }

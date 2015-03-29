@@ -4,7 +4,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import message.Message;
-import serveur.SiteImpl;
 
 public interface SiteItf extends Remote 
 {
@@ -15,7 +14,7 @@ public interface SiteItf extends Remote
 
 	public void    ajouteFils(SiteItf enfant) throws RemoteException;
 
-	public void    fixeParent(SiteImpl parent) throws RemoteException;
+	public void    fixeParent(SiteItf parent) throws RemoteException;
 
 	public int     genereFlag() throws RemoteException;
 
