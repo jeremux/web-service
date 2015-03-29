@@ -1,6 +1,7 @@
 package interf;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public interface GraphItf extends SiteItf
 {
@@ -19,4 +20,8 @@ public interface GraphItf extends SiteItf
 	 * @throws RemoteException
 	 */
 	public boolean estVoisin(GraphItf noeud) throws RemoteException;
+
+	public ArrayList<GraphItf> getVoisins() throws RemoteException ;
+
+	public void setVoisins(ArrayList<GraphItf> voisins) throws RemoteException ;;
 }
