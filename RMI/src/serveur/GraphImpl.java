@@ -10,7 +10,6 @@ import java.util.Random;
 
 import message.Message;
 import interf.GraphItf;
-import interf.TreeItf;
 
 /**
  * @author jeremux
@@ -107,10 +106,18 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 		message.setOrigine(this);
 		
 		//Envoie aux voisins
-		for(int i=0; i<voisins.size() ; i++)
+		for(int i=0; i<this.voisins.size() ; i++)
 		{	
+			System.out.println("On doit envoyer à "+voisins.get(i).affiche());
 			if(!voisins.get(i).aRecu(message.getFlag()))
+			{
+				System.out.println("On envoie...");
 				(new TransfertThread(voisins.get(i), message)).run();
+			}
+			else
+			{
+				System.out.println("On n'envoie PAS car deja recu...");
+			}
 		}
 	}
 
@@ -121,8 +128,18 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 	public void ajouteVoisin(GraphItf noeud) throws RemoteException
 	{
 		if(!this.estVoisin(noeud))
+		{
 			this.voisins.add(noeud);
-
+			System.out.println(this.nom+" connecté avec "+noeud.affiche());
+		}
+		
+		if(!noeud.estVoisin(this))
+		{
+			ArrayList<GraphItf> tmp = noeud.getVoisins();
+			tmp.add(this);
+			noeud.setVoisins(tmp);
+			System.out.println(noeud.affiche()+" connecté avec "+this.nom);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -131,7 +148,20 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 	@Override
 	public boolean estVoisin(GraphItf noeud) throws RemoteException
 	{
-		return this.voisins.contains(noeud);
+		return (this.voisins.contains(noeud) || noeud.getVoisins().contains(this));
+	}
+	
+	public ArrayList<GraphItf> getVoisins() throws RemoteException
+	{
+		return this.voisins;
+	}
+
+	@Override
+	public void setVoisins(ArrayList<GraphItf> voisins) throws RemoteException
+	{
+		this.voisins = new ArrayList<GraphItf>();
+		for(GraphItf g: voisins)
+			this.voisins.add(g);
 	}
 
 }
