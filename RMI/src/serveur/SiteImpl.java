@@ -10,6 +10,7 @@ import java.util.Random;
 
 import message.Message;
 import interf.SiteItf;
+import interf.TreeItf;
 
 /**
  * <b>SiteImpl est la classe représentant un noeud.</b>
@@ -25,13 +26,13 @@ import interf.SiteItf;
  * @author jeremy FONTAINE
  * @version 1.0
  */
-public class SiteImpl extends UnicastRemoteObject implements SiteItf
+public class SiteImpl extends UnicastRemoteObject implements TreeItf
 {
 
 	private String             nom;
 	private int                flag;
-	private SiteItf            parent;
-	private ArrayList<SiteItf> enfants;
+	private TreeItf            parent;
+	private ArrayList<TreeItf> enfants;
 
 	private static final long serialVersionUID = 6058676928968366096L;
 
@@ -44,7 +45,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 		super();
 		this.nom     = "sans nom";
 		this.flag    = -1;
-		this.enfants = new ArrayList<SiteItf>();
+		this.enfants = new ArrayList<TreeItf>();
 		this.setParent(null);
 
 	}
@@ -60,7 +61,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 		this.setParent(null);
 		this.nom     = nom;
 		this.flag    = -1;
-		this.enfants = new ArrayList<SiteItf>();
+		this.enfants = new ArrayList<TreeItf>();
 		System.out.println("=============");
 		System.out.println("|Noeud "+nom+"|");
 		System.out.println("=============");
@@ -88,7 +89,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	 * @see interf.SiteItf#ajouteFils(SiteItf)
 	 */
 	@Override
-	public void ajouteFils(SiteItf noeud) throws RemoteException
+	public void ajouteFils(TreeItf noeud) throws RemoteException
 	{
 //		System.out.println("==========");
 //		System.out.println("Je vais ajouter le fils "+noeud.affiche()+" a "+this.affiche());
@@ -120,7 +121,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	 * @see interf.SiteItf#genereFlag(SiteItf)
 	 */
 	@Override
-	public void fixeParent(SiteItf parent) throws RemoteException
+	public void fixeParent(TreeItf parent) throws RemoteException
 	{
 		this.setParent(parent);
 		//System.out.println(parent.affiche()+" a pour fils "+this.affiche());
@@ -140,7 +141,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	 * Met à jour le parent du noeud courant
 	 * @param parent noeud parent à attribuer
 	 */
-	public void setParent(SiteItf parent)
+	public void setParent(TreeItf parent)
 	{
 		this.parent = parent;
 	}
@@ -178,7 +179,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 		}
 	}
 	
-	public String stringGraphe(SiteItf site) throws RemoteException
+	public String stringGraphe(TreeItf site) throws RemoteException
 	{
 		String res = "";
 		
@@ -195,28 +196,11 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	}
 
 	@Override
-	public ArrayList<SiteItf> getEnfants() throws RemoteException
+	public ArrayList<TreeItf> getEnfants() throws RemoteException
 	{
 		return this.enfants;
 	}
 
-	@Override
-	public void ajouteVoisin(SiteItf noeud) throws RemoteException
-	{
-		if(!this.estVoisin(noeud))
-		{
-			this.ajouteFils(noeud);
-		}
-		
-	}
 
-	@Override
-	public boolean estVoisin(SiteItf noeud) throws RemoteException
-	{
-		if(parent!=null)
-			return (this.enfants.contains(noeud) || this.parent.equals(noeud));
-		else
-			return this.enfants.contains(noeud);
-	}
 
 }

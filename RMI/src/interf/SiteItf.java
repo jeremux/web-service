@@ -2,7 +2,6 @@ package interf;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 import message.Message;
 
@@ -34,19 +33,6 @@ public interface SiteItf extends Remote
 	 */
 	public boolean aRecu(int flag) throws RemoteException;
 	
-	/**
-	 * Ajoute au noeud courant un noeud fils
-	 * @param enfant noeud à ajouter
-	 * @throws RemoteException
-	 */
-	public void    ajouteFils(SiteItf enfant) throws RemoteException;
-	
-	/**
-	 * Définit le noeud parent du noeud courant
-	 * @param parent noeud à attribuer comme parent
-	 * @throws RemoteException
-	 */
-	public void    fixeParent(SiteItf parent) throws RemoteException;
 	
 	/**
 	 * Permet d'obtenir un flag aléatoire
@@ -62,28 +48,5 @@ public interface SiteItf extends Remote
 	 * @throws RemoteException
 	 */
 	public void    transfert(Message message) throws RemoteException;
-	
-	/**
-	 * Permet de recupérer les enfants du noeud courant
-	 * @return liste des noeuds enfants, définit avec la topologie arbre
-	 * @throws RemoteException
-	 */
-	public ArrayList<SiteItf> getEnfants() throws RemoteException;
-	
-	/**
-	 * Ajoute un noeud voisin au noeud courant
-	 * @param noeud noeud à ajouter au voisin courant
-	 * @throws RemoteException
-	 */
-	public void ajouteVoisin(SiteItf noeud) throws RemoteException;
-	
-	/**
-	 * Teste si le noeud courant et le noeud passé en paramètre
-	 * sont voisins
-	 * @param noeud noeud à tester
-	 * @return true si les noeuds sont voisins false sinon 
-	 * @throws RemoteException
-	 */
-	public boolean estVoisin(SiteItf noeud) throws RemoteException;
 	
 }

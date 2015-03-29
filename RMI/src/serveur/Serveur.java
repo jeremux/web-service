@@ -9,6 +9,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 import interf.SiteItf;
+import interf.TreeItf;
 
 public class Serveur
 {
@@ -39,8 +40,8 @@ public class Serveur
 			portParent  = Integer.parseInt(args[3]);
 			System.out.println("On va chercher dans "+hoteParent+":"+portParent);
 			Registry regP = LocateRegistry.getRegistry(hoteParent,portParent);
-			SiteItf parent = (SiteItf) regP.lookup(nom);
-			parent.ajouteFils(site);
+			TreeItf parent = (TreeItf) regP.lookup(nom);
+			parent.ajouteFils((TreeItf) site);
 		}
 		
 	}
