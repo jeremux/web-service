@@ -26,9 +26,9 @@ public class Serveur
 		int port = Integer.parseInt(args[0]);
 		
 		if(args.length > 1)
-			site = new SiteImpl(args[1]);
+			site = new TreeImpl(args[1]);
 		else
-			site = new SiteImpl();
+			site = new TreeImpl();
 
 		Registry reg = LocateRegistry.createRegistry(port);
 		reg.bind(nom, site);

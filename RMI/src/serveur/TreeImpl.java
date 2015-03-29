@@ -26,7 +26,7 @@ import interf.TreeItf;
  * @author jeremy FONTAINE
  * @version 1.0
  */
-public class SiteImpl extends UnicastRemoteObject implements TreeItf
+public class TreeImpl extends UnicastRemoteObject implements TreeItf
 {
 
 	private String             nom;
@@ -40,7 +40,7 @@ public class SiteImpl extends UnicastRemoteObject implements TreeItf
 	 * Créé un nouveau noeud sans nom
 	 * @throws RemoteException
 	 */
-	protected SiteImpl() throws RemoteException
+	protected TreeImpl() throws RemoteException
 	{
 		super();
 		this.nom     = "sans nom";
@@ -55,7 +55,7 @@ public class SiteImpl extends UnicastRemoteObject implements TreeItf
 	 * @param nom nom du noeud créé
 	 * @throws RemoteException
 	 */
-	protected SiteImpl(String nom) throws RemoteException
+	protected TreeImpl(String nom) throws RemoteException
 	{
 		super();
 		this.setParent(null);
