@@ -9,7 +9,7 @@ import java.rmi.registry.Registry;
 
 import message.Message;
 
-public  class   Client
+public class Client
 {
 	public static void main(String[] args) throws RemoteException, NotBoundException
 	{
@@ -24,7 +24,7 @@ public  class   Client
 		SiteItf  site = (SiteItf) reg.lookup("RMI");
 		int      flag = site.genereFlag();
 	
-		Message  msg  = new Message(message, flag,site);
+		Message  msg  = new Message(message, flag);
 	
 		site.transfert(msg);
 	}

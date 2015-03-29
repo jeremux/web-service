@@ -20,7 +20,7 @@ public class TransferThread extends Thread
 	{
 		try
 		{
-			System.out.println("Envoyé: \""+this.msg.getContenu()+"\" [to "+this.destination.affiche()+"]");
+			System.out.println("Envoyer: \""+this.msg.getContenu()+"\" [a "+this.destination.affiche()+"]");
 			destination.transfert(msg);
 		}
 		catch (RemoteException e)

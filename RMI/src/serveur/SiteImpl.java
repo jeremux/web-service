@@ -131,11 +131,11 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 
 		if (message.getOrigine() != null) 
 		{
-			System.out.println("Recu: \""+message.getContenu().toString()+"\" [de "+message.getOrigine().affiche()+"]");
+			System.out.println(this.nom+ " reçoit: \""+message.getContenu().toString()+"\" [de "+message.getOrigine().affiche()+"]");
 		} 
 		else 
 		{
-			System.out.println("Recu : \""+message.getContenu().toString()+"\" [de client]");
+			System.out.println(this.nom+" reçoit : \""+message.getContenu().toString()+"\" [de client]");
 		}
 
 		message.setOrigine(this);
