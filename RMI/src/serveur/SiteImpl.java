@@ -122,7 +122,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	{
 		this.setParent(parent);
 		System.out.println(parent.affiche()+" a pour fils "+this.affiche());
-
+		System.out.println(this.stringGraphe(parent));
 	}
 
 	/**
@@ -174,6 +174,28 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 			if(!enfants.get(i).aRecu(message.getFlag()))
 				(new TransfertThread(enfants.get(i), message)).run();
 		}
+	}
+	
+	public String stringGraphe(SiteItf site) throws RemoteException
+	{
+		String res = "";
+		
+		if(site.getEnfants().size()==0)
+			res+="("+site.affiche()+")";
+		else
+			res += "(" + site.affiche();
+			for(int i=0; i<site.getEnfants().size() ; i++)
+			{	
+				res+="("+site.getEnfants().get(i).affiche()+")";
+			}
+			res += ")";
+		return res;
+	}
+
+	@Override
+	public ArrayList<SiteItf> getEnfants() throws RemoteException
+	{
+		return this.enfants;
 	}
 
 }

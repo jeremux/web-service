@@ -2,6 +2,7 @@ package interf;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import message.Message;
 
@@ -61,5 +62,7 @@ public interface SiteItf extends Remote
 	 * @throws RemoteException
 	 */
 	public void    transfert(Message message) throws RemoteException;
+
+	public ArrayList<SiteItf> getEnfants() throws RemoteException;
 	
 }
