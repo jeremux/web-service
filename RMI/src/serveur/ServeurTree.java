@@ -11,7 +11,7 @@ import java.rmi.registry.Registry;
 import interf.SiteItf;
 import interf.TreeItf;
 
-public class Serveur
+public class ServeurTree
 {
 
 	public static void main(String[] args) throws RemoteException, AlreadyBoundException, NotBoundException, UnknownHostException
