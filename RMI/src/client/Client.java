@@ -11,6 +11,7 @@ import message.Message;
 
 public class Client
 {
+
 	public static void main(String[] args) throws RemoteException, NotBoundException
 	{
 		String  hote    = args[0];

@@ -12,8 +12,18 @@ import message.Message;
 import interf.SiteItf;
 
 /**
- * @author jeremux
- *
+ * <b>SiteImpl est la classe représentant un noeud.</b>
+ * <p>
+ * Un objet SiteImpl est caractérisé par les informations suivantes :
+ * <ul>
+ * <li>Un nom</li>
+ * <li>Un flag</li>
+ * <li>Un noeud parent</li>
+ * <li>Des enfants, ensemble de noeud</li>
+ * </ul>
+ * 
+ * @author jeremy FONTAINE
+ * @version 1.0
  */
 public class SiteImpl extends UnicastRemoteObject implements SiteItf
 {
@@ -23,13 +33,12 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	private SiteItf            parent;
 	private ArrayList<SiteItf> enfants;
 
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6058676928968366096L;
 
-
+	/**
+	 * Créé un nouveau noeud sans nom
+	 * @throws RemoteException
+	 */
 	protected SiteImpl() throws RemoteException
 	{
 		super();
@@ -39,7 +48,12 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 		this.setParent(null);
 
 	}
-
+	
+	/**
+	 * Créé un nouveau noeud
+	 * @param nom nom du noeud créé
+	 * @throws RemoteException
+	 */
 	protected SiteImpl(String nom) throws RemoteException
 	{
 		super();
@@ -69,7 +83,7 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	}
 
 	/* (non-Javadoc)
-	 * @see interf.SiteItf#ajouteFils()
+	 * @see interf.SiteItf#ajouteFils(SiteItf)
 	 */
 	@Override
 	public void ajouteFils(SiteItf noeud) throws RemoteException
@@ -99,7 +113,10 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 
 		return res;
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see interf.SiteItf#genereFlag(SiteItf)
+	 */
 	@Override
 	public void fixeParent(SiteItf parent) throws RemoteException
 	{
@@ -109,7 +126,8 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	}
 
 	/**
-	 * @return the parent
+	 * Recupère le parent du noeud courant
+	 * @return le noeud parent du noeud courant
 	 */
 	public SiteItf getParent()
 	{
@@ -117,13 +135,17 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	}
 
 	/**
-	 * @param parent the parent to set
+	 * Met à jour le parent du noeud courant
+	 * @param parent noeud parent à attribuer
 	 */
 	public void setParent(SiteItf parent)
 	{
 		this.parent = parent;
 	}
 
+	/* (non-Javadoc)
+	 * @see interf.SiteItf#genereFlag(Message)
+	 */
 	@Override
 	public void transfert(Message message) throws RemoteException
 	{
@@ -137,19 +159,20 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 		{
 			System.out.println(this.nom+" reçoit : \""+message.getContenu().toString()+"\" [de client]");
 		}
-
+		
+		// On met à jour l'origine pour envoyer ou noeud voisins...
 		message.setOrigine(this);
 		
 		//Si parent non null et si pas recu on envoie au parent
 		if (this.parent != null && !this.parent.aRecu(message.getFlag())) 
-			(new TransferThread(this.parent, message)).start();
+			(new TransfertThread(this.parent, message)).start();
 		
 		
 		//Envoie aux fils
 		for(int i=0; i<enfants.size() ; i++)
 		{	
 			if(!enfants.get(i).aRecu(message.getFlag()))
-				(new TransferThread(enfants.get(i), message)).run();
+				(new TransfertThread(enfants.get(i), message)).run();
 		}
 	}
 
