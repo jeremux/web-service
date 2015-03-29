@@ -61,7 +61,9 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 		this.nom     = nom;
 		this.flag    = -1;
 		this.enfants = new ArrayList<SiteItf>();
-
+		System.out.println("=============");
+		System.out.println("|Noeud "+nom+"|");
+		System.out.println("=============");
 	}
 
 	/* (non-Javadoc)
@@ -88,12 +90,12 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	@Override
 	public void ajouteFils(SiteItf noeud) throws RemoteException
 	{
-		System.out.println("==========");
-		System.out.println("Je vais ajouter le fils "+noeud.affiche()+" a "+this.affiche());
+//		System.out.println("==========");
+//		System.out.println("Je vais ajouter le fils "+noeud.affiche()+" a "+this.affiche());
 		this.enfants.add(noeud);
 		noeud.fixeParent(this);
-		System.out.println("Done...");
-		System.out.println("==========");
+//		System.out.println("Done...");
+//		System.out.println("==========");
 	}
 
 
@@ -121,8 +123,8 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	public void fixeParent(SiteItf parent) throws RemoteException
 	{
 		this.setParent(parent);
-		System.out.println(parent.affiche()+" a pour fils "+this.affiche());
-		System.out.println(this.stringGraphe(parent));
+		//System.out.println(parent.affiche()+" a pour fils "+this.affiche());
+		//System.out.println(this.stringGraphe(parent));
 	}
 
 	/**
@@ -196,6 +198,25 @@ public class SiteImpl extends UnicastRemoteObject implements SiteItf
 	public ArrayList<SiteItf> getEnfants() throws RemoteException
 	{
 		return this.enfants;
+	}
+
+	@Override
+	public void ajouteVoisin(SiteItf noeud) throws RemoteException
+	{
+		if(!this.estVoisin(noeud))
+		{
+			this.ajouteFils(noeud);
+		}
+		
+	}
+
+	@Override
+	public boolean estVoisin(SiteItf noeud) throws RemoteException
+	{
+		if(parent!=null)
+			return (this.enfants.contains(noeud) || this.parent.equals(noeud));
+		else
+			return this.enfants.contains(noeud);
 	}
 
 }
