@@ -21,7 +21,7 @@ public class Client
 	 * @param args 
 	 * 			args[0] nom de l'hote destinataire
 	 * 			args[1] port destinataire
-	 * 			[args[2]] message 
+	 * 			[args[2]] message
 	 * @throws RemoteException
 	 * @throws NotBoundException
 	 */
