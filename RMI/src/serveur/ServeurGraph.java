@@ -1,7 +1,5 @@
 package serveur;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.rmi.AccessException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
@@ -29,15 +27,7 @@ public class ServeurGraph
 	public static void main(String[] args) 
 	{
 		
-		try
-		{
-			System.out.println("Adresse: "+InetAddress.getLocalHost().toString());
-		}
-		catch (UnknownHostException e)
-		{
-			System.err.println("Erreur récupération adresse locale");
-			e.printStackTrace();
-		}
+		System.setProperty( "java.rmi.server.hostname","localhost");
 		SiteItf site       = null;
 		String  nom        = "RMI";
 		String  hoteVoisin = "";

@@ -20,9 +20,9 @@ public class Client
 	/**
 	 * Envoie de message client
 	 * @param args 
-	 * 			args[0] nom de l'hote destinataire
-	 * 			args[1] port destinataire
-	 * 			[args[2]] message
+	 * 		<p>	args[0] nom de l'hote destinataire
+	 * 		<p>	args[1] port destinataire
+	 * 		<p>	[args[2]] message
 	 */
 	public static void main(String[] args) 
 	{
