@@ -2,6 +2,7 @@ package client;
 
 import interf.SiteItf;
 
+import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -22,10 +23,8 @@ public class Client
 	 * 			args[0] nom de l'hote destinataire
 	 * 			args[1] port destinataire
 	 * 			[args[2]] message
-	 * @throws RemoteException
-	 * @throws NotBoundException
 	 */
-	public static void main(String[] args) throws RemoteException, NotBoundException
+	public static void main(String[] args) 
 	{
 		String  hote    = args[0];
 		int     port    = Integer.parseInt(args[1]);
@@ -34,12 +33,59 @@ public class Client
 		if(args.length > 2)
 			message = args[2];
 		
-		Registry reg  = LocateRegistry.getRegistry(hote, port);
-		SiteItf  site = (SiteItf) reg.lookup("RMI");
-		int      flag = site.genereFlag();
+		Registry reg = null;
+		try
+		{
+			reg = LocateRegistry.getRegistry(hote, port);
+		}
+		catch (RemoteException e)
+		{
+			System.err.println("Erreur récupération d'un objet Registry sur "+hote+":"+port);
+			e.printStackTrace();
+		}
+		
+		SiteItf site = null;
+		try
+		{
+			site = (SiteItf) reg.lookup("RMI");
+		}
+		catch (AccessException e)
+		{
+			System.err.println("Erreur d'acces, vous n'avez peut - être pas la permission");
+			e.printStackTrace();
+		}
+		catch (RemoteException e)
+		{
+			System.err.println("Erreur RemoteException");
+			e.printStackTrace();
+		}
+		catch (NotBoundException e)
+		{
+			System.err.println("Aucun assocation avec dans le registre");
+			e.printStackTrace();
+		}
+		
+		int flag = -1;
+		try
+		{
+			flag = site.genereFlag();
+		}
+		catch (RemoteException e)
+		{
+			System.err.println("Problème pour generer flag");
+			e.printStackTrace();
+		}
 	
 		Message  msg  = new Message(message, flag);
 	
-		site.transfert(msg);
+		try
+		{
+			site.transfert(msg);
+		}
+		catch (RemoteException e)
+		{
+			System.err.println("Problème transfert de message");
+			e.printStackTrace();
+		}
 	}
 }

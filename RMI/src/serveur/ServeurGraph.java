@@ -2,6 +2,7 @@ package serveur;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.rmi.AccessException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -24,15 +25,19 @@ public class ServeurGraph
 	 * 			args[0] port du noeud
 	 * 			args[1] nom du noeud (optionel)
 	 * 			args[2] liste des noeuds voisins sous la forme: hote1:port1,hote2:port2,...,hoteN:portN (optionel)
-	 * @throws RemoteException
-	 * @throws AlreadyBoundException
-	 * @throws NotBoundException
-	 * @throws UnknownHostException
 	 */
-	public static void main(String[] args) throws RemoteException, AlreadyBoundException, NotBoundException, UnknownHostException
+	public static void main(String[] args) 
 	{
 		
-		System.out.println(InetAddress.getLocalHost().toString());
+		try
+		{
+			System.out.println(InetAddress.getLocalHost().toString());
+		}
+		catch (UnknownHostException e)
+		{
+			System.err.println("Erreur récupération adresse locale");
+			e.printStackTrace();
+		}
 		SiteItf site       = null;
 		String  nom        = "RMI";
 		String  hoteVoisin = "";
@@ -41,12 +46,55 @@ public class ServeurGraph
 		int port = Integer.parseInt(args[0]);
 		
 		if(args.length > 1)
-			site = new GraphImpl(args[1]);
+			try
+			{
+				site = new GraphImpl(args[1]);
+			}
+			catch (RemoteException e)
+			{
+				System.err.println("Erreur création nouvel objet GraphImpl");
+				e.printStackTrace();
+			}
 		else
-			site = new GraphImpl();
+			try
+			{
+				site = new GraphImpl();
+			}
+			catch (RemoteException e)
+			{
+				System.err.println("Erreur création nouvel objet GraphImpl");
+				e.printStackTrace();
+			}
 
-		Registry reg = LocateRegistry.createRegistry(port);
-		reg.bind(nom, site);
+		Registry reg = null;
+		try
+		{
+			reg = LocateRegistry.createRegistry(port);
+		}
+		catch (RemoteException e)
+		{
+			System.err.println("Erreur création d'un nouveau registre");
+			e.printStackTrace();
+		}
+		try
+		{
+			reg.bind(nom, site);
+		}
+		catch (AccessException e)
+		{
+			System.err.println("Erreur d'acces, vous n'avez peut - être pas la permission");
+			e.printStackTrace();
+		}
+		catch (RemoteException e)
+		{
+			System.err.println("Erreur RemoteException");
+			e.printStackTrace();
+		}
+		catch (AlreadyBoundException e)
+		{
+			System.err.println("L'assocation "+nom+" existe déjà");
+			e.printStackTrace();
+		}
 
 		if(args.length > 2)
 		{
@@ -55,9 +103,48 @@ public class ServeurGraph
 			{
 				hoteVoisin = voisin.split(":")[0];
 				portVoisin = Integer.parseInt(voisin.split(":")[1]);
-				Registry regP = LocateRegistry.getRegistry(hoteVoisin,portVoisin);
-				GraphItf v = (GraphItf) regP.lookup(nom);
-				v.ajouteVoisin((GraphItf) site);
+				
+				Registry regP = null;
+				try
+				{
+					regP = LocateRegistry.getRegistry(hoteVoisin,portVoisin);
+				}
+				catch (RemoteException e)
+				{
+					System.err.println("Erreur recupération du registre du voisin");
+					e.printStackTrace();
+				}
+				
+				GraphItf v = null;
+				try
+				{
+					v = (GraphItf) regP.lookup(nom);
+				}
+				catch (AccessException e)
+				{
+					System.err.println("Erreur d'acces, vous n'avez peut - être pas la permission");
+					e.printStackTrace();
+				}
+				catch (RemoteException e)
+				{
+					System.err.println("Erreur RemoteException");
+					e.printStackTrace();
+				}
+				catch (NotBoundException e)
+				{
+					System.err.println("Aucune assocation trouvé pour "+nom+" dans le registre");
+					e.printStackTrace();
+				}
+				
+				try
+				{
+					v.ajouteVoisin((GraphItf) site);
+				}
+				catch (RemoteException e)
+				{
+					System.err.println("Erreur ajout voisin");
+					e.printStackTrace();
+				}
 			}
 				
 		}

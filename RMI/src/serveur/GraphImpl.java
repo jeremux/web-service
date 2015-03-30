@@ -38,7 +38,7 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 	
 	/**
 	 * Créé un nouveau noeud sans nom
-	 * @throws RemoteException
+	 * @throws RemoteException si l'allocation échoue
 	 */
 	public GraphImpl() throws RemoteException
 	{
@@ -52,7 +52,7 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 	/**
 	 * Créé un nouveau noeud
 	 * @param nom nom du noeud créé
-	 * @throws RemoteException
+	 * @throws RemoteException si l'allocation échoue
 	 */
 	public GraphImpl(String nom) throws RemoteException
 	{

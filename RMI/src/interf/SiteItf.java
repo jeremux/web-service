@@ -20,7 +20,7 @@ public interface SiteItf extends Remote
 	/**
 	 * Affiche le nom du noeud courant
 	 * @return nom du noeud courant
-	 * @throws RemoteException
+	 * @throws RemoteException si la recupération du nom échoue
 	 */
 	public String  affiche() throws RemoteException;
 
@@ -29,7 +29,7 @@ public interface SiteItf extends Remote
 	 * reçu un message avec le flag indiqué
 	 * @param flag numéro du flag à tester
 	 * @return true si le message a été reçu, false sinon
-	 * @throws RemoteException
+	 * @throws RemoteException si le test échoue
 	 */
 	public boolean aRecu(int flag) throws RemoteException;
 	
@@ -37,7 +37,7 @@ public interface SiteItf extends Remote
 	/**
 	 * Permet d'obtenir un flag aléatoire
 	 * @return un entier aléatoire
-	 * @throws RemoteException
+	 * @throws RemoteException si la generation échoue
 	 */
 	public int     genereFlag() throws RemoteException;
 	
@@ -45,7 +45,7 @@ public interface SiteItf extends Remote
 	 * Permet de transferet un message (objet) du noeud
 	 * courant aux autres noeuds connectés
 	 * @param message message à envoyer
-	 * @throws RemoteException
+	 * @throws RemoteException si le transfert échoue
 	 */
 	public void    transfert(Message message) throws RemoteException;
 	

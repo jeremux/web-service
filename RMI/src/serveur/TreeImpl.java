@@ -40,7 +40,7 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 
 	/**
 	 * Créé un nouveau noeud sans nom
-	 * @throws RemoteException
+	 * @throws RemoteException si l'allocation échoue
 	 */
 	public TreeImpl() throws RemoteException
 	{
@@ -56,7 +56,7 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 	/**
 	 * Créé un nouveau noeud
 	 * @param nom nom du noeud créé
-	 * @throws RemoteException
+	 * @throws RemoteException si l'allocation échoue
 	 */
 	public TreeImpl(String nom) throws RemoteException
 	{
