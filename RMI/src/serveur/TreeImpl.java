@@ -6,10 +6,10 @@ package serveur;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import message.Message;
-import interf.SiteItf;
 import interf.TreeItf;
 
 /**
@@ -33,6 +33,8 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 	private int                flag;
 	private TreeItf            parent;
 	private ArrayList<TreeItf> enfants;
+	private Message	message;
+	private HashMap<Integer,Integer> cptMessage;
 
 	private static final long serialVersionUID = 6058676928968366096L;
 
@@ -40,13 +42,14 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 	 * Créé un nouveau noeud sans nom
 	 * @throws RemoteException
 	 */
-	protected TreeImpl() throws RemoteException
+	public TreeImpl() throws RemoteException
 	{
 		super();
 		this.nom     = "sans nom";
 		this.flag    = -1;
 		this.enfants = new ArrayList<TreeItf>();
 		this.setParent(null);
+		this.cptMessage = new HashMap<Integer, Integer>();
 
 	}
 	
@@ -55,13 +58,14 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 	 * @param nom nom du noeud créé
 	 * @throws RemoteException
 	 */
-	protected TreeImpl(String nom) throws RemoteException
+	public TreeImpl(String nom) throws RemoteException
 	{
 		super();
 		this.setParent(null);
 		this.nom     = nom;
 		this.flag    = -1;
 		this.enfants = new ArrayList<TreeItf>();
+		this.cptMessage = new HashMap<Integer, Integer>();
 		System.out.println("=============");
 		System.out.println("Noeud "+nom);
 		System.out.println("=============");
@@ -132,7 +136,7 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 	 * Recupère le parent du noeud courant
 	 * @return le noeud parent du noeud courant
 	 */
-	public SiteItf getParent()
+	public TreeItf getParent() throws RemoteException
 	{
 		return parent;
 	}
@@ -164,6 +168,8 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 		}
 		
 		// On met à jour l'origine pour envoyer ou noeud voisins...
+		this.message = message;
+		incrementeCpt();
 		message.setOrigine(this);
 		
 		//Si parent non null et si pas recu on envoie au parent
@@ -179,6 +185,20 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 		}
 	}
 	
+	private void incrementeCpt()
+	{
+		if(this.cptMessage.get(this.flag)==null)
+		{
+			this.cptMessage.put(this.flag, 1);
+		}
+		else
+		{
+			int tmp = this.cptMessage.get(this.flag)+1;
+			this.cptMessage.put(this.flag,tmp);
+		}
+		
+	}
+
 	public String stringGraphe(TreeItf site) throws RemoteException
 	{
 		String res = "";
@@ -199,6 +219,26 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 	public ArrayList<TreeItf> getEnfants() throws RemoteException
 	{
 		return this.enfants;
+	}
+
+	public TreeImpl getParentByName(String string) throws RemoteException
+	{
+		for(TreeItf t: this.enfants)
+		{
+			if(t.affiche().equals(string))
+				return (TreeImpl) t.getParent();
+		}
+		return null;
+	}
+
+	public Message getMessage()
+	{
+		return this.message;
+	}
+
+	public int getCptMessage(int i)
+	{
+		return this.cptMessage.get(i);
 	}
 
 

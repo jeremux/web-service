@@ -25,4 +25,6 @@ public interface TreeItf extends SiteItf
 	 * @throws RemoteException
 	 */
 	public ArrayList<TreeItf> getEnfants() throws RemoteException;
+
+	public TreeItf getParent() throws RemoteException;
 }
