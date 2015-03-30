@@ -6,6 +6,7 @@ package serveur;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import message.Message;
@@ -18,21 +19,24 @@ import interf.GraphItf;
 public class GraphImpl extends UnicastRemoteObject implements GraphItf
 {
 
-	private static              final    long serialVersionUID = -310287126277104232L;
-	private String              nom;
-	private int                 flag;
-	private ArrayList<GraphItf> voisins;
+	private static                   final       long serialVersionUID = -310287126277104232L;
+	private String                   nom;
+	private int                      flag;
+	private ArrayList<GraphItf>      voisins;
+	private Message                  message;
+	private HashMap<Integer,Integer> cptMessage;
 	
 	/**
 	 * Créé un nouveau noeud sans nom
 	 * @throws RemoteException
 	 */
-	protected GraphImpl() throws RemoteException
+	public GraphImpl() throws RemoteException
 	{
 		super();
 		this.nom     = "sans nom";
 		this.flag    = -1;
 		this.voisins = new ArrayList<GraphItf>();
+		this.cptMessage = new HashMap<Integer, Integer>();
 	}
 	
 	/**
@@ -40,12 +44,13 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 	 * @param nom nom du noeud créé
 	 * @throws RemoteException
 	 */
-	protected GraphImpl(String nom) throws RemoteException
+	public GraphImpl(String nom) throws RemoteException
 	{
 		super();
 		this.nom     = nom;
 		this.flag    = -1;
 		this.voisins = new ArrayList<GraphItf>();
+		this.cptMessage = new HashMap<Integer, Integer>();
 		System.out.println("=============");
 		System.out.println("Noeud "+nom);
 		System.out.println("=============");
@@ -102,6 +107,8 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 			System.out.println(this.nom+" reçoit : \""+message.getContenu().toString()+"\" [de client]");
 		}
 		
+		this.message = message;
+		incrementeCpt();
 		// On met à jour l'origine pour envoyer ou noeud voisins...
 		message.setOrigine(this);
 		
@@ -148,7 +155,7 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 	@Override
 	public boolean estVoisin(GraphItf noeud) throws RemoteException
 	{
-		return (this.voisins.contains(noeud) || noeud.getVoisins().contains(this));
+		return (this.voisins.contains(noeud));
 	}
 	
 	public ArrayList<GraphItf> getVoisins() throws RemoteException
@@ -162,6 +169,31 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 		this.voisins = new ArrayList<GraphItf>();
 		for(GraphItf g: voisins)
 			this.voisins.add(g);
+	}
+
+	public Message getMessage()
+	{
+		// TODO Auto-generated method stub
+		return this.message;
+	}
+
+	public int getCptMessage(int i)
+	{
+		return this.cptMessage.get(i);
+	}
+	
+	private void incrementeCpt()
+	{
+		if(this.cptMessage.get(this.flag)==null)
+		{
+			this.cptMessage.put(this.flag, 1);
+		}
+		else
+		{
+			int tmp = this.cptMessage.get(this.flag)+1;
+			this.cptMessage.put(this.flag,tmp);
+		}
+		
 	}
 
 }
