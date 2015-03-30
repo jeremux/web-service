@@ -12,9 +12,19 @@ import java.util.Random;
 import message.Message;
 import interf.GraphItf;
 
+
 /**
- * @author jeremux
- *
+ * <b>GraphImpl est la classe représentant un Graphe.</b>
+ * <p>
+ * Un objet GraphImpl est caractérisé par les informations suivantes :
+ * <ul>
+ * <li>Un nom</li>
+ * <li>Un flag</li>
+ * <li>Des voisins</li>
+ * </ul>
+ * 
+ * @author Jeremy FONTAINE jeremy.fontaine@live.fr
+ * @version 1.0
  */
 public class GraphImpl extends UnicastRemoteObject implements GraphItf
 {
@@ -23,8 +33,8 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 	private String                   nom;
 	private int                      flag;
 	private ArrayList<GraphItf>      voisins;
-	private Message                  message;
-	private HashMap<Integer,Integer> cptMessage;
+	protected Message                  message;
+	protected HashMap<Integer,Integer> cptMessage;
 	
 	/**
 	 * Créé un nouveau noeud sans nom
@@ -170,13 +180,14 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 		for(GraphItf g: voisins)
 			this.voisins.add(g);
 	}
-
+	
+	
 	public Message getMessage()
 	{
-		// TODO Auto-generated method stub
 		return this.message;
 	}
 
+	
 	public int getCptMessage(int i)
 	{
 		return this.cptMessage.get(i);

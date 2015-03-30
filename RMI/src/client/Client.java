@@ -9,14 +9,27 @@ import java.rmi.registry.Registry;
 
 import message.Message;
 
+/**
+ * Classe utilisée pour envoyer un
+ * message à un noeud d'arbre/graphe
+ * @author Jeremy FONTAINE jeremy.fontaine@live.fr
+ */
 public class Client
 {
-
+	/**
+	 * Envoie de message client
+	 * @param args 
+	 * 			args[0] nom de l'hote destinataire
+	 * 			args[1] port destinataire
+	 * 			[args[2]] message 
+	 * @throws RemoteException
+	 * @throws NotBoundException
+	 */
 	public static void main(String[] args) throws RemoteException, NotBoundException
 	{
 		String  hote    = args[0];
 		int     port    = Integer.parseInt(args[1]);
-		String  message = "toto";
+		String  message = "Hello world !";
 		
 		if(args.length > 2)
 			message = args[2];

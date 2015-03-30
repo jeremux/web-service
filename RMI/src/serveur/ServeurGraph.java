@@ -11,9 +11,24 @@ import java.rmi.registry.Registry;
 import interf.GraphItf;
 import interf.SiteItf;
 
+/**
+ * Cette classe permet de créer un graphe
+ * @author Jeremy FONTAINE jeremy.fontaine@live.fr
+ *
+ */
 public class ServeurGraph
 {
-
+	/**
+	 * Créé un noeud 
+	 * @param args
+	 * 			args[0] port du noeud
+	 * 			args[1] nom du noeud (optionel)
+	 * 			args[2] liste des noeuds voisins sous la forme: hote1:port1,hote2:port2,...,hoteN:portN (optionel)
+	 * @throws RemoteException
+	 * @throws AlreadyBoundException
+	 * @throws NotBoundException
+	 * @throws UnknownHostException
+	 */
 	public static void main(String[] args) throws RemoteException, AlreadyBoundException, NotBoundException, UnknownHostException
 	{
 		

@@ -3,6 +3,10 @@ package interf;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Jeremy FONTAINE jeremy.fontaine@live.fr
+ */
 public interface TreeItf extends SiteItf
 {
 	/**
@@ -25,6 +29,11 @@ public interface TreeItf extends SiteItf
 	 * @throws RemoteException
 	 */
 	public ArrayList<TreeItf> getEnfants() throws RemoteException;
-
+	
+	/**
+	 * Recupère le parent du noeud courant
+	 * @return le noeud parent
+	 * @throws RemoteException
+	 */
 	public TreeItf getParent() throws RemoteException;
 }

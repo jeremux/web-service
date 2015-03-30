@@ -2,7 +2,10 @@ package interf;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-
+/**
+ * 
+ * @author Jeremy FONTAINE jeremy.fontaine@live.fr
+ */
 public interface GraphItf extends SiteItf
 {
 	/**
@@ -21,7 +24,17 @@ public interface GraphItf extends SiteItf
 	 */
 	public boolean estVoisin(GraphItf noeud) throws RemoteException;
 
+	/**
+	 * Recupère la liste des voisins du noeud courant
+	 * @return liste des voisins
+	 * @throws RemoteException
+	 */
 	public ArrayList<GraphItf> getVoisins() throws RemoteException ;
-
+	
+	/**
+	 * Met à jour la liste des voisins du noeud courant
+	 * @param voisins nouvelle liste à affecter
+	 * @throws RemoteException
+	 */
 	public void setVoisins(ArrayList<GraphItf> voisins) throws RemoteException ;;
 }
