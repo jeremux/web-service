@@ -23,16 +23,16 @@ public class ServeurTree
 	/**
 	 * Créé un noeud
 	 * @param args
-	 * 			args[0] port du noeud
-	 * 			args[1] nom du noeud (optionel)
-	 * 			args[2] noeud parent sous la forme nomHote:numeroPort (optionel)
+	 * 		<p>	args[0] port du noeud
+	 * 		<p>	args[1] nom du noeud (optionel)
+	 * 		<p>	args[2] noeud parent sous la forme nomHote:numeroPort (optionel)
 	 */
 	public static void main(String[] args) 
 	{
 		
 		try
 		{
-			System.out.println(InetAddress.getLocalHost().toString());
+			System.out.println("Adresse: "+InetAddress.getLocalHost().toString());
 		}
 		catch (UnknownHostException e)
 		{
@@ -103,7 +103,6 @@ public class ServeurTree
 			
 			hoteParent += args[2].split(":")[0];
 			portParent  = Integer.parseInt(args[2].split(":")[1]);
-			System.out.println("On va chercher dans "+hoteParent+":"+portParent);
 			
 			Registry regP = null;
 			try

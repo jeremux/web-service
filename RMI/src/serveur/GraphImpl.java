@@ -114,7 +114,7 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 		} 
 		else 
 		{
-			System.out.println(this.nom+" reçoit : \""+message.getContenu().toString()+"\" [de client]");
+			System.out.println(this.nom+" reçoit : \""+message.getContenu().toString()+"\" [du client]");
 		}
 		
 		this.message = message;
@@ -125,15 +125,9 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 		//Envoie aux voisins
 		for(int i=0; i<this.voisins.size() ; i++)
 		{	
-			System.out.println("On doit envoyer à "+voisins.get(i).affiche());
 			if(!voisins.get(i).aRecu(message.getFlag()))
 			{
-				System.out.println("On envoie...");
 				(new TransfertThread(voisins.get(i), message)).run();
-			}
-			else
-			{
-				System.out.println("On n'envoie PAS car deja recu...");
 			}
 		}
 	}
@@ -147,7 +141,6 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 		if(!this.estVoisin(noeud))
 		{
 			this.voisins.add(noeud);
-			System.out.println(this.nom+" connecté avec "+noeud.affiche());
 		}
 		
 		if(!noeud.estVoisin(this))
@@ -155,7 +148,6 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 			ArrayList<GraphItf> tmp = noeud.getVoisins();
 			tmp.add(this);
 			noeud.setVoisins(tmp);
-			System.out.println(noeud.affiche()+" connecté avec "+this.nom);
 		}
 	}
 

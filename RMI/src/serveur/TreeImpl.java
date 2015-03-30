@@ -95,12 +95,8 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 	@Override
 	public void ajouteFils(TreeItf noeud) throws RemoteException
 	{
-//		System.out.println("==========");
-//		System.out.println("Je vais ajouter le fils "+noeud.affiche()+" a "+this.affiche());
 		this.enfants.add(noeud);
 		noeud.fixeParent(this);
-//		System.out.println("Done...");
-//		System.out.println("==========");
 	}
 
 
@@ -128,8 +124,6 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 	public void fixeParent(TreeItf parent) throws RemoteException
 	{
 		this.setParent(parent);
-		//System.out.println(parent.affiche()+" a pour fils "+this.affiche());
-		//System.out.println(this.stringGraphe(parent));
 	}
 
 	/**
@@ -164,7 +158,7 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 		} 
 		else 
 		{
-			System.out.println(this.nom+" reçoit : \""+message.getContenu().toString()+"\" [de client]");
+			System.out.println(this.nom+" reçoit : \""+message.getContenu().toString()+"\" [du client]");
 		}
 		
 		// On met à jour l'origine pour envoyer ou noeud voisins...

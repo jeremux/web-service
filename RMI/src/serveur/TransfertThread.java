@@ -37,7 +37,7 @@ public class TransfertThread extends Thread
 	{
 		try
 		{
-			System.out.println("Envoyer: \""+this.msg.getContenu()+"\" [a "+this.destination.affiche()+"]");
+			System.out.println("On doit envoyer: \""+this.msg.getContenu()+"\" [a "+this.destination.affiche()+"]");
 			destination.transfert(msg);
 		}
 		catch (RemoteException e)

@@ -21,17 +21,17 @@ public class ServeurGraph
 {
 	/**
 	 * Créé un noeud 
-	 * @param args
-	 * 			args[0] port du noeud
-	 * 			args[1] nom du noeud (optionel)
-	 * 			args[2] liste des noeuds voisins sous la forme: hote1:port1,hote2:port2,...,hoteN:portN (optionel)
+	 * @param args 
+	 * 		<p>	args[0] port du noeud
+	 * 		<p>	args[1] nom du noeud (optionel)
+	 * 		<p>	args[2] liste des noeuds voisins sous la forme: hote1:port1,hote2:port2,...,hoteN:portN (optionel)
 	 */
 	public static void main(String[] args) 
 	{
 		
 		try
 		{
-			System.out.println(InetAddress.getLocalHost().toString());
+			System.out.println("Adresse: "+InetAddress.getLocalHost().toString());
 		}
 		catch (UnknownHostException e)
 		{
