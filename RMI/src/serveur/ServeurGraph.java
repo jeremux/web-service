@@ -33,6 +33,12 @@ public class ServeurGraph
 		String  hoteVoisin = "";
 		int     portVoisin = -1;
 		
+		if(args.length==0)
+		{
+			usage();
+			System.exit(1);
+		}
+		
 		int port = Integer.parseInt(args[0]);
 		
 		if(args.length > 1)
@@ -138,6 +144,13 @@ public class ServeurGraph
 			}
 				
 		}
+		
+	}
+	
+	private static void usage() {
+		System.err.println("Erreur arguments");
+		System.out.println("java -jar ServeurGraph.jar port [nomNoeud] [voisinHote-1:voisinPort-1] #1 voisin");
+		System.out.println("java -jar ServeurGraph.jar port [nomNoeud] [voisinHote-1:voisinPort-1,...,voisinHote-n:voisinPort-n] #n voisins");
 		
 	}
 }

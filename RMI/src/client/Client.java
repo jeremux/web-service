@@ -26,6 +26,12 @@ public class Client
 	 */
 	public static void main(String[] args) 
 	{
+		if(args.length<2)
+		{
+			usage();
+			System.exit(1);
+		}
+		
 		String  hote    = args[0];
 		int     port    = Integer.parseInt(args[1]);
 		String  message = "Hello world !";
@@ -87,5 +93,11 @@ public class Client
 			System.err.println("Problème transfert de message");
 			e.printStackTrace();
 		}
+	}
+	
+	private static void usage() {
+		System.err.println("Erreur arguments");
+		System.out.println("java -jar Client.jar hoteDestination portDestination [message]");
+		
 	}
 }
