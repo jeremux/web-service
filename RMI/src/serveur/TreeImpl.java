@@ -63,7 +63,7 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 		super();
 		this.setParent(null);
 		this.nom     = nom;
-		this.flag    = -1;
+		this.flag    = -2;
 		this.enfants = new ArrayList<TreeItf>();
 		this.cptMessage = new HashMap<Integer, Integer>();
 		System.out.println("=============");
@@ -167,13 +167,14 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 		message.setOrigine(this);
 		
 		//Si parent non null et si pas recu on envoie au parent
-		if (this.parent != null && !this.parent.aRecu(message.getFlag())) 
-			(new TransfertThread(this.parent, message)).start();
+		//if (this.parent != null && !this.parent.aRecu(message.getFlag())) 
+		//	(new TransfertThread(this.parent, message)).start();
 		
 		
 		//Envoie aux fils
 		for(int i=0; i<enfants.size() ; i++)
 		{	
+			System.out.println("HELLLLO "+i);
 			if(!enfants.get(i).aRecu(message.getFlag()))
 				(new TransfertThread(enfants.get(i), message)).run();
 		}
@@ -232,7 +233,10 @@ public class TreeImpl extends UnicastRemoteObject implements TreeItf
 
 	public int getCptMessage(int i)
 	{
-		return this.cptMessage.get(i);
+		if(this.cptMessage.get(i)==null)
+			return 0;
+		else
+			return this.cptMessage.get(i);
 	}
 
 

@@ -17,6 +17,11 @@ communiquer entre plusieurs sites de façon distribuée et asynchrone.
 Le projet gère les sites connectés avec une topologie d'arbre ou plus généralement
 de graphe.
 
+Avec une topologie en arbre un message envoyé sur un noeud est propagé à ses fils.
+
+Avec une topologie en graphe un message envoyé à un noeud
+propage celui-ci à tous ses voisins.
+
 Le guide d'utilisation et des exemples se trouvent à la fin du README
 
 # Architecture

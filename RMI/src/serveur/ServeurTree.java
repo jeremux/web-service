@@ -35,8 +35,14 @@ public class ServeurTree
 		String  hoteParent = "";
 		int     portParent = -1;
 		
-		int port = Integer.parseInt(args[0]);
+		if(args.length==0)
+		{
+			usage();
+			System.exit(1);
+		}
 		
+		int port = Integer.parseInt(args[0]);
+			
 		if(args.length > 1)
 			try
 			{
@@ -137,6 +143,12 @@ public class ServeurTree
 				e.printStackTrace();
 			}
 		}
+		
+	}
+
+	private static void usage() {
+		System.err.println("Erreur arguments");
+		System.out.println("java -jar ServeurTree.jar port [nomNoeud] [parentHote:parentPort]");
 		
 	}
 }
