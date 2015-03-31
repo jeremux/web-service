@@ -149,6 +149,10 @@ Voir src/tests
 
 # Scripts 
 
+```bash
+	cd scripts
+```
+
 ### TreeExample.sh
 Ce script créé l'exemple d'arbre donnée dans le tp 
 
