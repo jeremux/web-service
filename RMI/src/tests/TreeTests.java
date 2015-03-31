@@ -124,7 +124,8 @@ public class TreeTests
 		assertEquals(m,cinq.getMessage());
 		assertEquals(m,six.getMessage());
 		
-		assertNotEquals(m, noeudNonConnecte.getMessage());
+		boolean tmp = m.equals(noeudNonConnecte.getMessage());
+		assertEquals(false,tmp);
 		
 	}
 	
