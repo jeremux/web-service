@@ -159,5 +159,5 @@ Ce script créé l'exemple d'arbre donnée dans le tp
 ### GraphExample.sh
 Ce script rajoute un arc entre les noeuds 4 et 6 dans l'arbre d'exemple
 
-### EnvoieNoeud<n>.sh 0 < n < 7
+### EnvoieNoeudN.sh 0 < N < 7
 Permet d'envoyer un message au noeud n
