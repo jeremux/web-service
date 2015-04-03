@@ -26,7 +26,7 @@ Le guide d'utilisation et des exemples se trouvent à la fin du README
 
 # Architecture
 
-Le projet est découpé en 3 paquets:
+Le projet est découpé en 4 paquets:
 *  client, pour gérer les clients qui communiquent avec les sites
 *  interf, regroupant l'ensemble des interfaces RMI
 *  message, pour gérer le message échangé
