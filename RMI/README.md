@@ -27,10 +27,10 @@ Le guide d'utilisation et des exemples se trouvent à la fin du README
 # Architecture
 
 Le projet est découpé en 3 paquets:
-	* client, pour gérer les clients qui communiquent avec les sites
-	* interf, regroupant l'ensemble des interfaces RMI
-	* message, pour gérer le message échangé
-	* serveur, l'ensemble des classes pour gérer les sites
+	*  client, pour gérer les clients qui communiquent avec les sites
+	*  interf, regroupant l'ensemble des interfaces RMI
+	*  message, pour gérer le message échangé
+	*  serveur, l'ensemble des classes pour gérer les sites
 
 # Exceptions
 
