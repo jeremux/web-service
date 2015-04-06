@@ -163,7 +163,7 @@ public class TreeTests
 	}
 	
 	@Test
-	public void envoiMessageNoeudCinq() throws RemoteException
+	public void envoiMessageNoeudDeux() throws RemoteException
 	{
 		TreeImpl deux   = new TreeImpl("2");
 		TreeImpl trois  = new TreeImpl("3");
@@ -179,9 +179,9 @@ public class TreeTests
 		un.ajouteFils(deux);
 		un.ajouteFils(cinq);
 		
-		Message m = new Message("Envoie du noeud 5",12);
+		Message m = new Message("Envoie du noeud 2",12);
 		
-		cinq.transfert(m);
+		deux.transfert(m);
 		
 		//On fait un sleep pour envoyer à tous les noeuds
 		try {
@@ -190,9 +190,9 @@ public class TreeTests
 		    Thread.currentThread().interrupt();
 		}
 		
-		//test si tous les noeuds connecté reçoit les messages
-		assertEquals(m,un.getMessage());
-		assertEquals(m,six.getMessage());
+		//seulement les neouds 3 et 4 recoivent
+		assertEquals(null,un.getMessage());
+		assertEquals(null,un.getMessage());
 		assertEquals(m,deux.getMessage());
 		assertEquals(m,trois.getMessage());
 		assertEquals(m,quatre.getMessage());
@@ -216,21 +216,21 @@ public class TreeTests
 		un.ajouteFils(deux);
 		un.ajouteFils(cinq);
 		
-		Message m = new Message("Envoie du noeud 1",12);
-		Message m1 = new Message("Envoie du noeud 1 bis",13);
+		Message m = new Message("Envoie du noeud 2",12);
 		
-		cinq.transfert(m);
+		deux.transfert(m);
 		
-		//On fait un sleep pour envoyer à tous les noeuds
+		//On fait un sleep pour envoyer à trois et quatre
 		try {
 		    Thread.sleep(1000);                 
 		} catch(InterruptedException ex) {
 		    Thread.currentThread().interrupt();
 		}
 		
-		cinq.transfert(m1);
+		//Envoie depuis la racine
+		un.transfert(m);
 		
-		//test si tous les noeuds connecté reçoit qu'une fois les messages
+		//Les noeuds 3 et 4 recoivent une seule fois le message
 		assertEquals(1,un.getCptMessage(12));
 		assertEquals(1,deux.getCptMessage(12));
 		assertEquals(1,trois.getCptMessage(12));

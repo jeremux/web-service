@@ -17,15 +17,20 @@ communiquer entre plusieurs sites de façon distribuée et asynchrone.
 Le projet gère les sites connectés avec une topologie d'arbre ou plus généralement
 de graphe.
 
+Avec une topologie en arbre un message envoyé sur un noeud est propagé à ses fils.
+
+Avec une topologie en graphe un message envoyé à un noeud
+propage celui-ci à tous ses voisins.
+
 Le guide d'utilisation et des exemples se trouvent à la fin du README
 
 # Architecture
 
-Le projet est découpé en 3 paquets:
-	* client, pour gérer les clients qui communiquent avec les sites
-	* interf, regroupant l'ensemble des interfaces RMI
-	* message, pour gérer le message échangé
-	* serveur, l'ensemble des classes pour gérer les sites
+Le projet est découpé en 4 paquets:
+*  client, pour gérer les clients qui communiquent avec les sites
+*  interf, regroupant l'ensemble des interfaces RMI
+*  message, pour gérer le message échangé
+*  serveur, l'ensemble des classes pour gérer les sites
 
 # Exceptions
 

@@ -182,7 +182,10 @@ public class GraphImpl extends UnicastRemoteObject implements GraphItf
 	
 	public int getCptMessage(int i)
 	{
-		return this.cptMessage.get(i);
+		if(this.cptMessage.get(i)==null)
+			return 0;
+		else
+			return this.cptMessage.get(i);
 	}
 	
 	private void incrementeCpt()
