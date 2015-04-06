@@ -1,7 +1,7 @@
 TP 4 Java EE
 ========
 
-(https://github.com/jeremux/web-service/tree/master/java-ee)
+(https://github.com/jeremux/web-service/tree/master/jee)
 # Auteurs
 
 Jeremy FONTAINE
