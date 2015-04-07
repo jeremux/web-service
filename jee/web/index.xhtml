@@ -3,29 +3,45 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:x="http://xmlns.jcp.org/jsf/html">
        <body>
+             
         <form action="results.jsp">
             <fieldset>
                 <legend>Informations</legend>
             <table>
                 <tr>
                     <td>Titre : </td>
-                    <td><input type="text" name="titre" /></td>
+                    <td><input id="t" type="text" name="titre" value=""/></td>
                 </tr>
                 <tr>
                     <td>Auteur : </td>
-                    <td><input type="text" name="auteur" /></td>
+                    <td><input id="a" type="text" name="auteur" value=""/></td>
                 </tr>
                 <tr>
                     <td>Année de parution : </td>
-                    <td><input type="text" name="annee" /></td>
+                    <td><input id="y" type="text" name="annee" value=""/></td>
                 </tr>
                 <tr>
-                    <td><input type="submit" value="Order" name="order" /></td>
+                    <td><input type="submit" value="OK" name="livre" /></td>
                 </tr>
                 <!---->
             </table>
             </fieldset>
         </form>
+              <script type="text/javascript">
+                    function getParam(val)
+                    {
+                        url = decodeURI(location.search);
+                        res = url.split(val)[1] ? url.split(val)[1] : '';
+                        if(res.indexOf("&amp;") > -1)
+                            res = res.split("&amp;")[0];
+                        return res;
+                    }
+                 
+                    document.getElementById('t').value = getParam("titre=");
+                    document.getElementById('a').value = getParam("auteur=");
+                    document.getElementById('y').value = getParam("annee=");
+                    
+                </script>
     </body>
 </html>
 

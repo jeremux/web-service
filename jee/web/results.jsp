@@ -12,13 +12,14 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Informations du livre :</h1>
-        <h3>Titre = <%= request.getParameter("titre")%> </h3>
-        <h3>Author = <%= request.getParameter("auteur")%> </h3>
-        <h3>Release Date = <%= request.getParameter("annee")%> </h3>
-        <% request.setAttribute("titre", request.getParameter("titre")); %>
-        <form action="index.html">
-            <input type="submit" value="Submit as admin">
+        <h3>Informations du livre :</h3>
+        <p><b>Titre:</b> <%= request.getParameter("titre")%> </p>
+        <p><b>Ateur:</b> <%= request.getParameter("auteur")%> </p>
+        <p><b>Annee parution:</b> <%= request.getParameter("annee")%> </p>
+        
+        <form action="index.xhtml?titre=<%= request.getParameter("titre")%>&auteur=<%= request.getParameter("auteur")%>&annee=<%= request.getParameter("annee")%>
+              " method="post">
+            <input type="submit" value="ok">
         </form>
     </body>
 </html>
